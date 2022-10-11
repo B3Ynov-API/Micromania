@@ -13,7 +13,7 @@ export default defineConfig({
                 alias: {
                     '~bootstrap': path.resolve(__dirname, 'node_module/bootstrap'),
                 }
-            },
+            }, 
             refresh: true,
         }),
     ],
