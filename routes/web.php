@@ -23,5 +23,34 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/Products', [ProductController::class, 'index']);
+//Routes produits
+Route::controller(ProductController::class)->group(function(){
+//index
+Route::get('/Products', 'index')
+    ->name('products.index');
+//show
+Route::get('Products/{product}', 'show')
+    ->name('products.show')
+    ->where('product', '[0-9]+');
+//create
+Route::get('Products/create', 'create')
+    ->name('products.create');
+//store
+Route::post('Products/create', 'store')
+    ->name('products.store');
+//edit
+Route::get('Products/edit/{product}', 'edit')
+    ->name('products.edit')
+    ->where('product', '[0-9]+');
+//update
+Route::put('Products/edit/{product}', 'update')
+    ->name('products.update')
+    ->where('product', '[0-9]+');
+//destroy
+Route::delete('Products/{product}', 'destroy')
+    ->name('products.destroy')
+    ->where('product_id', '[0-9]+');
+});
+
+//Routes achats
 Route::get('/Purchases', [PurchaseController::class, 'index']);
