@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class PurchaseController extends Controller
 {
@@ -15,7 +16,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::all();
+        $purchases = Purchase::paginate(5);
         return view('purchases.index', compact('purchases'));
     }
 
@@ -69,7 +70,7 @@ class PurchaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Purchases  $purchases
+     * @param  \App\Models\Purchase  $purchases
      * @return \Illuminate\Http\Response
      */
     public function show(Purchase $purchase)
@@ -80,7 +81,7 @@ class PurchaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Purchases  $purchases
+     * @param  \App\Models\Purchase  $purchases
      * @return \Illuminate\Http\Response
      */
     public function edit(Purchase $purchase)
@@ -92,7 +93,7 @@ class PurchaseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Purchases  $purchases
+     * @param  \App\Models\Purchase  $purchases
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Purchase $purchase)
@@ -103,11 +104,12 @@ class PurchaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Purchases  $purchases
+     * @param  \App\Models\Purchase  $purchases
      * @return \Illuminate\Http\Response
      */
     public function destroy(Purchase $purchase)
     {
-        //
+        Product::destroy($purchase->id);
+        return redirect()->route('purchases.index');
     }
 }
