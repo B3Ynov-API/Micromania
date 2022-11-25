@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table)
         {
-            $table->bigInteger('pegi_id')
+            $table->unsignedBigInteger('pegi_id')
                     ->nullable();
             $table->foreign('pegi_id')
                 ->references('id')
