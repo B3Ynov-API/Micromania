@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LocalizationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
@@ -67,3 +68,7 @@ Route::controller(PurchaseController::class)->group(function(){
     Route::post('/Purchases/create', 'store')
         ->name('purchases.store');
 });
+
+//Routes lang
+Route::get('lang/{lang}',[LocalizationController::class,'setLang'])
+->name('lang');

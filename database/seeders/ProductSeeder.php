@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
                     ]
                     ;},
                 )
-            //->hasPurchases(fake()->randomDigit())
-            ->create();
+        //->hasPurchases(fake()->randomDigit())
+        ->create();
     }
 }

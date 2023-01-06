@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Psy\Readline\Hoa\Console;
 
 class PurchaseController extends Controller
 {
@@ -16,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::paginate(5);
+        $purchases = Purchase::has('products')->paginate(5);
         return view('purchases.index', compact('purchases'));
     }
 
