@@ -15,7 +15,8 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'price'
+        'price',
+        'category_id',
     ];
 
     protected $hidden = [

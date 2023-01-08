@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -26,7 +27,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -37,7 +39,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        $product = new Product();
+        $product->fill($request->input());
+        $product->category()->associate(Category::find($request->input('category_id')));
+        $product->save();
         return redirect()->route('products.index');
     }
 
@@ -60,7 +65,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $productCategory = Category::find($product->category_id);
+        $categories = Category::all();
+        return view('products.edit', compact('product', 'productCategory', 'categories'));
     }
 
     /**
@@ -73,6 +80,8 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->fill($request->input());
+        if ($request->input('category_id') != $product->category_id)
+            $product->category()->associate(Category::find($request->input('category_id')));
         $product->save();
         return redirect()->route('products.show', $product->id);
     }
