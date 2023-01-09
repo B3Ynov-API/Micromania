@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocalizationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -73,7 +74,7 @@ Route::controller(UserController::class)->group(function () {
     //edit
     Route::get('Users/edit/{user}', 'edit')
         ->name('users.edit')
-        ->where('product', '[0-9]+');
+        ->where('user', '[0-9]+');
     //update
     Route::put('Users/edit/{user}', 'update')
         ->name('users.update')
@@ -82,6 +83,35 @@ Route::controller(UserController::class)->group(function () {
     Route::delete('Users/{user}', 'destroy')
         ->name('users.destroy')
         ->where('user', '[0-9]+');
+});
+
+//Routes users
+Route::controller(CategoryController::class)->group(function () {
+    //index
+    Route::get('/Categories', 'index')
+        ->name('categories.index');
+    //show
+    Route::get('Categories/{category}', 'show')
+        ->name('categories.show')
+        ->where('category', '[0-9]+');
+    //create
+    Route::get('Categories/create', 'create')
+        ->name('categories.create');
+    //store
+    Route::post('Categories/create', 'store')
+        ->name('categories.store');
+    //edit
+    Route::get('Categories/edit/{category}', 'edit')
+        ->name('categories.edit')
+        ->where('category', '[0-9]+');
+    //update
+    Route::put('Categories/edit/{category}', 'update')
+        ->name('categories.update')
+        ->where('category', '[0-9]+');
+    //destroy
+    Route::delete('Categories/{category}', 'destroy')
+        ->name('categories.destroy')
+        ->where('category', '[0-9]+');
 });
 
 //Routes achats
