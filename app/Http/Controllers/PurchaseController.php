@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePurchaseRequest;
 use App\Models\Product;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class PurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePurchaseRequest $request)
     {
         $purchase = Purchase::make();
         $isThereValueIn = false;
