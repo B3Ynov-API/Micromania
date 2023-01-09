@@ -11,11 +11,11 @@
     </ul>
 @endif
 
-<a href="{{Route('categories.edit', $category)}}">Modifier ce produit</a>
+<a href="{{Route('categories.edit', $category)}}">Modifier cette catégorie</a>
 <form action="{{Route('categories.destroy', $category)}}" method="POST">
     @method('DELETE')
     @csrf
-    <input type="submit" value="Supprimer cet utilisateur">
+    <input type="submit" value="Supprimer cette catégorie">
 </form>
 
 

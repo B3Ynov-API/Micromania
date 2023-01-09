@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LocalizationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -85,7 +86,7 @@ Route::controller(UserController::class)->group(function () {
         ->where('user', '[0-9]+');
 });
 
-//Routes users
+//Routes categories
 Route::controller(CategoryController::class)->group(function () {
     //index
     Route::get('/Categories', 'index')
@@ -112,6 +113,35 @@ Route::controller(CategoryController::class)->group(function () {
     Route::delete('Categories/{category}', 'destroy')
         ->name('categories.destroy')
         ->where('category', '[0-9]+');
+});
+
+//Routes genres
+Route::controller(GenreController::class)->group(function () {
+    //index
+    Route::get('/Genres', 'index')
+        ->name('genres.index');
+    //show
+    Route::get('Genres/{genre}', 'show')
+        ->name('genres.show')
+        ->where('genre', '[0-9]+');
+    //create
+    Route::get('Genres/create', 'create')
+        ->name('genres.create');
+    //store
+    Route::post('Genres/create', 'store')
+        ->name('genres.store');
+    //edit
+    Route::get('Genres/edit/{genre}', 'edit')
+        ->name('genres.edit')
+        ->where('genre', '[0-9]+');
+    //update
+    Route::put('Genres/edit/{genre}', 'update')
+        ->name('genres.update')
+        ->where('genre', '[0-9]+');
+    //destroy
+    Route::delete('Genres/{genre}', 'destroy')
+        ->name('genres.destroy')
+        ->where('genre', '[0-9]+');
 });
 
 //Routes achats
