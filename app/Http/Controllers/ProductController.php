@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -37,10 +39,10 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $product = new Product();
-        $product->fill($request->input());
+        $product->fill($request->validated());
         $product->category()->associate(Category::find($request->input('category_id')));
         $product->save();
         return redirect()->route('products.index');
@@ -77,9 +79,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->fill($request->input());
+        $product->fill($request->validated());
         if ($request->input('category_id') != $product->category_id)
             $product->category()->associate(Category::find($request->input('category_id')));
         $product->save();
