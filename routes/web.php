@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    //Routes produits
-    Route::controller(ProductController::class)->group(function(){
+//Routes produits
+Route::controller(ProductController::class)->group(function () {
     //index
     Route::get('/Products', 'index')
         ->name('products.index');
@@ -54,8 +55,37 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
         ->where('product_id', '[0-9]+');
 });
 
+//Routes users
+Route::controller(UserController::class)->group(function () {
+    //index
+    Route::get('/Users', 'index')
+        ->name('users.index');
+    //show
+    Route::get('Users/{user}', 'show')
+        ->name('users.show')
+        ->where('user', '[0-9]+');
+    //create
+    Route::get('Users/create', 'create')
+        ->name('users.create');
+    //store
+    Route::post('Users/create', 'store')
+        ->name('users.store');
+    //edit
+    Route::get('Users/edit/{user}', 'edit')
+        ->name('users.edit')
+        ->where('product', '[0-9]+');
+    //update
+    Route::put('Users/edit/{user}', 'update')
+        ->name('users.update')
+        ->where('user', '[0-9]+');
+    //destroy
+    Route::delete('Users/{user}', 'destroy')
+        ->name('users.destroy')
+        ->where('user', '[0-9]+');
+});
+
 //Routes achats
-Route::controller(PurchaseController::class)->group(function(){
+Route::controller(PurchaseController::class)->group(function () {
     //Index
     Route::get('/Purchases', 'index')
         ->name('purchases.index');
@@ -70,5 +100,5 @@ Route::controller(PurchaseController::class)->group(function(){
 });
 
 //Routes lang
-Route::get('lang/{lang}',[LocalizationController::class,'setLang'])
-->name('lang');
+Route::get('lang/{lang}', [LocalizationController::class, 'setLang'])
+    ->name('lang');
