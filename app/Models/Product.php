@@ -41,4 +41,25 @@ class Product extends Model
     {
         return $this->belongsToMany(Genre::class);
     }
+
+    public function scopeFilter($q)
+{
+    if (request('searchName')) {
+        $q->where('name', 'like', '%' . request('searchName', '') . '%');
+    }
+    if (request('searchPriceMin' && request('searchPriceMax'))) {
+        $q->whereBetween('price', [request('searchPriceMin', 0), request('searchPriceMax', 999999999)]);
+    }
+    if (request('searchCategory')) {
+        $q->where('category_id', 'like', '%' . request('searchCategory', '') . '%');
+    }
+    if (request('searchPegi')) {
+        $q->where('pegi_id', request('searchPegi'));
+    }
+    if (request('searchGenre')) {
+        $q->where('genre_id', request('searchGenre'));
+    }
+
+    return $q;
+}
 }

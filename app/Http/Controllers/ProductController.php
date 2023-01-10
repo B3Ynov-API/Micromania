@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Models\Category;
+use App\Http\Requests\FilterProductRequest;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Genre;
+use App\Models\Pegi;
+use Illuminate\Support\Facades\Input;
 
 class ProductController extends Controller
 {
@@ -16,10 +20,37 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterProductRequest $request)
     {
-        $products = Product::paginate(5);
-        return view('products.index', compact('products'));
+        $pegis = Pegi::all();
+        $categories = Category::all();
+        $genres = Genre::all();
+
+        $products = Product::filter()->paginate(5);
+
+        // $products = Product::where('category_id', '=', $request->input('searchCategory', ''))->paginate(5);
+
+        // if (
+        //     $request->has('searchName') || ($request->has('searchPriceMin') && $request->has('searchPriceMax')) ||
+        //     $request->has('searchCategory')
+        // ) {
+        //     $products = Product::whereBetween('price', [$request->input('searchPriceMin', 0), $request->input('searchPriceMax', 999999999)])
+        //         ->where([
+        //             ['name', 'like', '%' . $request->input('searchName', '') . '%'],
+        //             ['category_id', 'like', '%' . $request->input('searchCategory', '') . '%'],
+        //         ])
+        //         ;
+        // } else {
+        //     $products = Product::paginate(5);
+        // }
+        // if ($request->has('searchPegi')) {
+        //     $products = $products->where('pegi_id', $request->input('searchPegi'))->paginate(5);
+        // }
+        // if ($request->has('searchGenre')) {
+        //     $products = $products->where('genre_id', $request->input('searchGenre'));
+        //     // $products = $products->whereRelation('genres', 'genre_id', $request->input('searchGenre'))->get()->paginate(5);
+        // }
+        return view('products.index', compact('products', 'pegis', 'categories', 'genres'));
     }
 
     /**
