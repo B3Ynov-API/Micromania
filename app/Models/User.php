@@ -48,4 +48,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function scopeFilter($q)
+    {
+        if(request('searchRole')) {
+            $q->where('role_id', request('searchRole', ''));
+        }
+        if(request('searchName')) {
+            $q->where('name', 'like', '%' . request('searchName', '') . '%');
+        }
+        return $q;
+    }
 }

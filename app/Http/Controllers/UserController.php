@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilterUserRequest;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -15,10 +16,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterUserRequest $request)
     {
-        $users = User::paginate(5);
-        return view ('users.index', compact('users'));
+        $roles = Role::all();
+
+        $users = User::filter()->paginate(5);
+        return view ('users.index', compact('users', 'roles'));
     }
 
     /**
