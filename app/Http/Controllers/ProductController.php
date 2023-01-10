@@ -28,28 +28,6 @@ class ProductController extends Controller
 
         $products = Product::filter()->paginate(5);
 
-        // $products = Product::where('category_id', '=', $request->input('searchCategory', ''))->paginate(5);
-
-        // if (
-        //     $request->has('searchName') || ($request->has('searchPriceMin') && $request->has('searchPriceMax')) ||
-        //     $request->has('searchCategory')
-        // ) {
-        //     $products = Product::whereBetween('price', [$request->input('searchPriceMin', 0), $request->input('searchPriceMax', 999999999)])
-        //         ->where([
-        //             ['name', 'like', '%' . $request->input('searchName', '') . '%'],
-        //             ['category_id', 'like', '%' . $request->input('searchCategory', '') . '%'],
-        //         ])
-        //         ;
-        // } else {
-        //     $products = Product::paginate(5);
-        // }
-        // if ($request->has('searchPegi')) {
-        //     $products = $products->where('pegi_id', $request->input('searchPegi'))->paginate(5);
-        // }
-        // if ($request->has('searchGenre')) {
-        //     $products = $products->where('genre_id', $request->input('searchGenre'));
-        //     // $products = $products->whereRelation('genres', 'genre_id', $request->input('searchGenre'))->get()->paginate(5);
-        // }
         return view('products.index', compact('products', 'pegis', 'categories', 'genres'));
     }
 

@@ -30,7 +30,6 @@
                         {{ $category->description }}</option>
                 @endforeach
             </select>
-            </select>
             <select name="searchPegi">
                 <option value="">Choisissez un pegi</option>
                 @foreach ($pegis as $pegi)

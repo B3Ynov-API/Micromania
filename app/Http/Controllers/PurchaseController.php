@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FilterPurchaseRequest;
 use App\Http\Requests\StorePurchaseRequest;
 use App\Models\Product;
 use App\Models\Purchase;
@@ -16,10 +17,12 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FilterPurchaseRequest $request)
     {
-        $purchases = Purchase::has('products')->paginate(5);
-        return view('purchases.index', compact('purchases'));
+        $products = Product::all();
+
+        $purchases = Purchase::has('products')->filter()->paginate(5);
+        return view('purchases.index', compact('purchases', 'products'));
     }
 
     /**

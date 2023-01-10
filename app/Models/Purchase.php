@@ -22,4 +22,12 @@ class Purchase extends Model
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity');
     }
+
+    public function scopeFilter($q)
+    {
+        if (request('searchProduct')) {
+            $q->whereRelation('products', 'product_id', request('searchProduct', ''));
+        }
+        return $q;
+    }
 }
