@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class CategorySeeder extends Seeder
+class PegiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,29 +16,29 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::insert([
+        DB::table('pegis')->insert([
             [
-                'description' => 'Jeux-vidéo',
+                'description' => '3+',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'description' => 'Produit dérivé',
+                'description' => '7+',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'description' => 'Console',
+                'description' => '12+',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'description' => 'Jeu de carte à collectionner',
+                'description' => '16+',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'description' => 'Carte prépayée',
+                'description' => '18+',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

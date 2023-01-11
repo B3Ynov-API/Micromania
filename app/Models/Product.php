@@ -47,8 +47,8 @@ class Product extends Model
         if (request('searchName')) {
             $q->where('name', 'like', '%' . request('searchName', '') . '%');
         }
-        if (request('searchPriceMin' && request('searchPriceMax'))) {
-            $q->whereBetween('price', [request('searchPriceMin', 0), request('searchPriceMax', 999999999)]);
+        if (request('searchPriceMin') >= 0 && request('searchPriceMax') >= 0) {
+            $q->whereBetween('price', [request('searchPriceMin'), request('searchPriceMax')]);
         }
         if (request('searchCategory')) {
             $q->where('category_id', 'like', '%' . request('searchCategory', '') . '%');

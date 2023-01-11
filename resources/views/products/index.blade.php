@@ -34,7 +34,7 @@
                 <option value="">Choisissez un pegi</option>
                 @foreach ($pegis as $pegi)
                     <option value="{{ $pegi->id }}" {{ request()->searchPegi == $pegi->id ? 'selected' : '' }}>
-                        {{ $pegi->name }}</option>
+                        {{ $pegi->description }}</option>
                 @endforeach
             </select>
             <select name="searchGenre">

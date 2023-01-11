@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\IsStaff;
 use App\Http\Middleware\LocalizationMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 

@@ -18,7 +18,7 @@
     <div class="mx-5">
         <form method="GET" action="{{ route('purchases.index') }}" class="form-inline my-2 my-lg-0">
             <select name="searchProduct">
-                <option value=''>Choisissez une catégorie</option>
+                <option value=''>Choisissez un produit</option>
                 @foreach ($products as $product)
                     <option value="{{ $product->id }}" {{ request()->searchProduct == $product->id ? 'selected' : '' }}>
                         {{ $product->name }}</option>

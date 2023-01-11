@@ -20,7 +20,7 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search" name="searchName"
                 value="{{ request()->searchName }}">
             <select name="searchRole">
-                <option value=''>Choisissez une catégorie</option>
+                <option value=''>Choisissez un rôle</option>
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}" {{ request()->searchRole == $role->id ? 'selected' : '' }}>
                         {{ $role->name }}</option>

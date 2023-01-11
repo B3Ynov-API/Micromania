@@ -2,14 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
-use App\Models\Pegi;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class ProductFactory extends Factory
+class GenresProductsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +18,10 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->word(),
-            'price' => fake()->randomFloat(2, 0, 500),
-            'category_id' => fake()->randomElement(Category::all())['id'],
-            'pegi_id' => fake()->randomElement(Pegi::all())['id'],
+            DB::table('genres_products')->insert([
+                'genre_id' => fake()->randomElement(DB::table('genres')->get())['id'],
+                'product_id' => fake()->randomElement(DB::table('products')->get())['id'],
+            ]),
         ];
     }
 }
