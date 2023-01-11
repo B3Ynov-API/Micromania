@@ -9,9 +9,17 @@ use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Psy\Readline\Hoa\Console;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PurchaseController extends Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Purchase::class, 'purchase');
+    }
+
     /**
      * Display a listing of the resource.
      *

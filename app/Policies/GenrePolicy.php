@@ -10,6 +10,12 @@ class GenrePolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user){
+        if ($user->role->name === 'Admin') {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -18,7 +24,7 @@ class GenrePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +36,7 @@ class GenrePolicy
      */
     public function view(User $user, Genre $genre)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +47,7 @@ class GenrePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**
@@ -53,7 +59,7 @@ class GenrePolicy
      */
     public function update(User $user, Genre $genre)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**
@@ -65,7 +71,7 @@ class GenrePolicy
      */
     public function delete(User $user, Genre $genre)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**

@@ -38,7 +38,7 @@
             </li>
         @endforeach
         <div class="text-center">
-            {{ $users->links() }}
+            {{ $users->appends(request()->input())->links() }}
         </div>
     </ul>
 @endsection

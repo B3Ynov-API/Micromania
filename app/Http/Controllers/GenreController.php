@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Http\Requests\StoreGenreRequest;
 use App\Http\Requests\UpdateGenreRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class GenreController extends Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Genre::class, 'genre');
+    }
     /**
      * Display a listing of the resource.
      *

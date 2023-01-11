@@ -51,6 +51,6 @@
         @endif
     @endforeach
     <div class="text-center">
-        {{ $purchases->links() }}
+        {{ $purchases->appends(request()->input())->links() }}
     </div>
 @endsection

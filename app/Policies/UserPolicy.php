@@ -9,6 +9,12 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user){
+        if ($user->role->name === 'Admin') {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view any models.
      *
@@ -17,7 +23,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**
@@ -29,7 +35,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**

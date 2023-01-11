@@ -2,13 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\Administrateur;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AnimalPolicy
+class ProductPolicy
 {
     use HandlesAuthorization;
+
+    public function before(User $user){
+        if ($user->role->name === 'Admin') {
+            return true;
+        }
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -18,19 +24,19 @@ class AnimalPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Administrateur  $administrateur
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Administrateur $administrateur)
+    public function view(User $user, Product $product)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,41 +47,41 @@ class AnimalPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Administrateur  $administrateur
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Administrateur $administrateur)
+    public function update(User $user, Product $product)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Administrateur  $administrateur
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Administrateur $administrateur)
+    public function delete(User $user, Product $product)
     {
-        //
+        return $user->role->name === 'Staff';
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Administrateur  $administrateur
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Administrateur $administrateur)
+    public function restore(User $user, Product $product)
     {
         //
     }
@@ -84,10 +90,10 @@ class AnimalPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Administrateur  $administrateur
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Administrateur $administrateur)
+    public function forceDelete(User $user, Product $product)
     {
         //
     }

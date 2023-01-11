@@ -12,9 +12,18 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Genre;
 use App\Models\Pegi;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProductController extends Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class, 'product');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
