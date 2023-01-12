@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\UserCollection;
@@ -27,14 +29,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role_id' => 1,
-        ]);
+        $user = User::create($request->validated());
         return response()->json(['success' => true, 'msg' => 'success', 'user' => new UserResource($user)], 201);
     }
 
@@ -46,7 +43,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return new UserResource(User::findOrFail($id));
     }
 
     /**
@@ -56,9 +53,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->fill($request->validated());
+        $user->save();
+        return response()->json(['success' => true, 'msg' => 'success', 'user' => new UserResource($user)], 200);
     }
 
     /**
@@ -67,8 +66,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(['success' => true, 'msg' => 'success'], 200);
     }
 }

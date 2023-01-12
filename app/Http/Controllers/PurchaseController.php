@@ -53,18 +53,6 @@ class PurchaseController extends Controller
     public function store(StorePurchaseRequest $request)
     {
         $purchase = Purchase::make();
-        $isThereValueIn = false;
-        foreach($request->product_quantities as $quantity)
-        {
-            if($quantity != 0)
-            {
-                $isThereValueIn = true;
-            }
-        }
-        if(!$isThereValueIn)
-        {
-            return redirect()->back();
-        }
 
         $purchase->save();
         $i = 0;

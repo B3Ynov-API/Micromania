@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGenreRequest;
+use App\Http\Requests\UpdateGenreRequest;
 use App\Http\Resources\GenreCollection;
+use App\Http\Resources\GenreResource;
 
 class GenreController extends Controller
 {
@@ -25,9 +28,10 @@ class GenreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGenreRequest $request)
     {
-        //
+        $genre = Genre::create($request->validated());
+        return response()->json(['success' => true, 'msg' => 'success', 'genre' => new GenreResource($genre)], 201);
     }
 
     /**
@@ -38,7 +42,7 @@ class GenreController extends Controller
      */
     public function show($id)
     {
-        //
+        return new GenreResource(Genre::findOrFail($id));
     }
 
     /**
@@ -48,9 +52,10 @@ class GenreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateGenreRequest $request, Genre $genre)
     {
-        //
+        $genre->update($request->validated());
+        return response()->json(['success' => true, 'msg' => 'success', 'genre' => new GenreResource($genre)], 200);
     }
 
     /**
@@ -59,8 +64,9 @@ class GenreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return response()->json(['success' => true, 'msg' => 'success'], 200);
     }
 }

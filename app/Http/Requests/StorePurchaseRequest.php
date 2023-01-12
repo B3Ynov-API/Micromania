@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ArrayAtLeastOneRequired;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePurchaseRequest extends FormRequest
@@ -24,7 +25,7 @@ class StorePurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_quantities' => 'required|array',
+            'product_quantities' => ['required', 'array', new ArrayAtLeastOneRequired],
             'product_quantities.*' => 'required|integer|min:0',
             'product_ids' => 'required|array',
             'product_ids.*' => 'required|integer|exists:products,id',

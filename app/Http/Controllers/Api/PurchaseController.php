@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Resources\PurchaseCollection;
+use App\Http\Resources\PurchaseResource;
 
 class PurchaseController extends Controller
 {
@@ -27,7 +29,21 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        $purchase = Purchase::make();
+
+        $purchase->save();
+        $i = 0;
+        foreach($request->product_quantities as $quantity)
+        {
+            if ($quantity != 0)
+            {
+                $purchase->products()->attach($request->product_ids[$i], ['quantity' => $quantity]);
+            }
+            $i = $i + 1;
+        }
+
+        return response()->json(['success' => true, 'msg' => 'success', 'purchase' => new PurchaseResource($purchase)], 201);
     }
 
     /**
@@ -38,7 +54,7 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
-        //
+        return new PurchaseResource(Purchase::findOrFail($id));
     }
 
     /**
@@ -48,9 +64,10 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Purchase $purchase)
     {
-        //
+        $purchase->update($request->validated());
+        return response()->json(['success' => true, 'msg' => 'success', 'purchase' => new PurchaseResource($purchase)], 200);
     }
 
     /**
@@ -59,8 +76,9 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Purchase $purchase)
     {
-        //
+        $purchase->delete();
+        return response()->json(['success' => true, 'msg' => 'success'], 200);
     }
 }
