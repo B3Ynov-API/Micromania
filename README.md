@@ -66,86 +66,93 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 
+## IDENTIFICATION
+Lors du seed de la base de données, on crée des utilisateurs par défaut, un pour chaque rôle. Leurs identifiants sont :
+- email : client@client.fr - mot de passe : password
+- email : staff@staff.fr - mot de passe : password
+- email : admin@admin.fr - mot de passe : password
+
+
 ## ROUTES
 ### USERS: 
 
-- GET http://127.0.0.1:8000/api/users Route servant à récupérer la liste de tout les utilisateurs 
-- POST http://127.0.0.1:8000/api/users Route servant à ajouter un utilisateur
-    * Paramètre demandé: 
+- GET http://127.0.0.1:8000/api/users Route servant à récupérer la liste de tous les utilisateurs. 
+- POST http://127.0.0.1:8000/api/users Route servant à ajouter un utilisateur.
+    * Paramètres demandés: 
         - name
         - email
         - password
         - password_confirmation
         - role_id
-- GET http://127.0.0.1:8000/api/users/{'id de l'utilisateur'} Route servant à récupérer un utilisateur en fonction de son identifiant dans la bdd
-- PUT http://127.0.0.1:8000/api/users/{'guid de l'utilisateur'} Route servant à modifier un utilisateur
-    * Paramètre demandé: 
+- GET http://127.0.0.1:8000/api/users/{'id de l'utilisateur'} Route servant à récupérer un utilisateur en fonction de son identifiant dans la BDD.
+- PUT http://127.0.0.1:8000/api/users/{'guid de l'utilisateur'} Route servant à modifier un utilisateur.
+    * Paramètres demandés: 
         - name
         - email
         - role_id
         ```
         Le password n'est pas modifiable
         ```
-- DEL http://127.0.0.1:8000/api/users/{'guid de l'utilisateur'} Route servant à supprimer un utilisateur de la bdd
+- DEL http://127.0.0.1:8000/api/users/{'guid de l'utilisateur'} Route servant à supprimer un utilisateur de la BDD.
 ### PRODUCTS: 
-- GET http://127.0.0.1:8000/api/products Route servant à récupérer la liste de tout les produits 
-- POST http://127.0.0.1:8000/api/products Route servant à ajouter un produit
-    * Paramètre demandé: 
+- GET http://127.0.0.1:8000/api/products Route servant à récupérer la liste de tous les produits. 
+- POST http://127.0.0.1:8000/api/products Route servant à ajouter un produit.
+    * Paramètres demandés: 
         - name
         - price
         - category_id
 
-- GET http://127.0.0.1:8000/api/products/{'id du produit'} Route servant à récupérer un produit en fonction de son identifiant dans la bdd
-- PUT http://127.0.0.1:8000/api/products/{'id du produit'} Route servant à modifier un produit
-    * Paramètre demandé: 
+- GET http://127.0.0.1:8000/api/products/{'id du produit'} Route servant à récupérer un produit en fonction de son identifiant dans la BDD.
+- PUT http://127.0.0.1:8000/api/products/{'id du produit'} Route servant à modifier un produit.
+    * Paramètres demandés: 
         - name
         - price
         - category_id
 
-- DEL http://127.0.0.1:8000/api/products/{'id du produit'} Route servant à supprimer un produit de la bdd
+- DEL http://127.0.0.1:8000/api/products/{'id du produit'} Route servant à supprimer un produit de la BDD.
 
 
 ### PURCHASES: 
-- GET http://127.0.0.1:8000/api/purchases Route servant à récupérer la liste de toute les factures 
-- POST http://127.0.0.1:8000/api/purchases Route servant à ajouter une facture
-    * Paramètre demandé: 
-        - product_ids[] (tableau des identifiants des produits)
-        - product_quantities[] (tableau des quantités)
+- GET http://127.0.0.1:8000/api/purchases Route servant à récupérer la liste de toutes les factures.
+- POST http://127.0.0.1:8000/api/purchases Route servant à ajouter une facture.
+    * Paramètres demandés: 
+        - product_ids[] (tableau des identifiants des produits que l'on souhaite ajouter à la facture)
+        - product_quantities[] (tableau des quantités correspondantes aux produits)
 
-- GET http://127.0.0.1:8000/api/purchases/{'id de la facture'} Route servant à récupérer une facture en fonction de son identifiant dans la bdd
+- GET http://127.0.0.1:8000/api/purchases/{'id de la facture'} Route servant à récupérer une facture en fonction de son identifiant dans la BDD.
 
-- DEL http://127.0.0.1:8000/api/purchases/{'id de la facture'} Route servant à supprimer une facture de la bdd
+- DEL http://127.0.0.1:8000/api/purchases/{'id de la facture'} Route servant à supprimer une facture de la BDD.
 
 
 ### CATEGORIES: 
-- GET http://127.0.0.1:8000/api/categories Route servant à récupérer la liste de tout les catégories
-- POST http://127.0.0.1:8000/api/categories Route servant à ajouter une catégorie
+- GET http://127.0.0.1:8000/api/categories Route servant à récupérer la liste de toutes les catégories.
+- POST http://127.0.0.1:8000/api/categories Route servant à ajouter une catégorie.
     * Paramètre demandé: 
         - description
-- GET http://127.0.0.1:8000/api/categories/{'id de la catégorie'} Route servant à récupérer une catégorie en fonction de son identifiant dans la bdd
-- PUT http://127.0.0.1:8000/api/categories/{'id de la catégorie'} Route servant à modifier une catégorie
+- GET http://127.0.0.1:8000/api/categories/{'id de la catégorie'} Route servant à récupérer une catégorie en fonction de son identifiant dans la BDD.
+- PUT http://127.0.0.1:8000/api/categories/{'id de la catégorie'} Route servant à modifier une catégorie.
     * Paramètre demandé: 
         - description
 
-- DEL http://127.0.0.1:8000/api/categories/{'id de la catégorie'} Route servant à supprimer une catégorie de la bdd
+- DEL http://127.0.0.1:8000/api/categories/{'id de la catégorie'} Route servant à supprimer une catégorie de la BDD.
 
 
 ### GENRES: 
-- GET http://127.0.0.1:8000/api/genres Route servant à récupérer la liste de tout les genres 
-- POST http://127.0.0.1:8000/api/genres Route servant à ajouter un genre
+- GET http://127.0.0.1:8000/api/genres Route servant à récupérer la liste de tous les genres.
+- POST http://127.0.0.1:8000/api/genres Route servant à ajouter un genre.
     * Paramètre demandé: 
         - description
 
-- GET http://127.0.0.1:8000/api/genres/{'id du genre'} Route servant à récupérer un genre en fonction de son identifiant dans la bdd
-- PUT http://127.0.0.1:8000/api/genres/{'id du genre'} Route servant à modifier un genre
+- GET http://127.0.0.1:8000/api/genres/{'id du genre'} Route servant à récupérer un genre en fonction de son identifiant dans la BDD.
+- PUT http://127.0.0.1:8000/api/genres/{'id du genre'} Route servant à modifier un genre.
     * Paramètre demandé: 
         - description
 
-- DEL http://127.0.0.1:8000/api/genres/{'id du genre'} Route servant à supprimer un genre de la bdd
+- DEL http://127.0.0.1:8000/api/genres/{'id du genre'} Route servant à supprimer un genre de la BDD.
 
 ### USERS
 
-POST http://127.0.0.1:8000/oauth/token
+POST http://127.0.0.1:8000/oauth/token Route servant à récupérer le token d'identification d'un utilisateur
 - grant_type (mode d'identification (ici à mettre en 'password'))
 - client_id
 - client_secret
